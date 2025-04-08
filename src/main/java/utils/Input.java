@@ -10,6 +10,7 @@ public class Input {
         for(int i = 0 ; i < n ; i++) {
             arr[i] = scanner.nextInt();
         }
+        scanner.close();
         return arr;
     }
 }
