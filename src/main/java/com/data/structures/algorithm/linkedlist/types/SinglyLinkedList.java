@@ -26,6 +26,7 @@ public class SinglyLinkedList<T> {
         Node<T> temp = createNode(data);
         if(Objects.isNull(HEAD)) {
             HEAD = temp;
+            size++;
             return;
         }
         Node<T> itr = HEAD;
@@ -54,7 +55,7 @@ public class SinglyLinkedList<T> {
         }
         int counter = 0;
         Node<T> itr = HEAD;
-        while (Objects.nonNull(itr.getNext())) {
+        while (Objects.nonNull(itr)) {
             if(counter == index - 1) break;
             itr = itr.getNext();
             counter++;
@@ -99,18 +100,64 @@ public class SinglyLinkedList<T> {
     public void delete(T data) {
         if(Objects.isNull(HEAD)) throw new RuntimeException("HEAD is NULL");
         Node<T> itr = HEAD;
-        if(itr.getData() == data) {
-            HEAD = itr.getNext();
-            size--;
-            return;
-        }
-        while(Objects.nonNull(itr.getNext().getNext())) {
-            if(itr.getNext().getData() == data) break;
+        Node<T> prev = null;
+        while(Objects.nonNull(itr)) {
+            if(Objects.equals(itr.getData(), data)) {
+                if(Objects.isNull(prev)) {
+                    HEAD = itr.getNext();
+                } else {
+                    prev.setNext(itr.getNext());
+                }
+                size--;
+                return;
+            } else {
+                prev = itr;
+            }
             itr = itr.getNext();
         }
-        if(itr.getNext().getData() == data) {
-            itr.setNext(itr.getNext().getNext());
-            size--;
+    }
+
+    public void deleteAll(T data) {
+        if(Objects.isNull(HEAD)) throw new RuntimeException("HEAD is NULL");
+        Node<T> itr = HEAD;
+        Node<T> prev = null;
+        while (Objects.nonNull(itr)) {
+            if(Objects.equals(itr.getData(), data)) {
+                if(Objects.isNull(prev)) {
+                    HEAD = itr.getNext();
+                } else {
+                    prev.setNext(itr.getNext());
+                }
+                size--;
+            } else {
+                prev = itr;
+            }
+            itr = itr.getNext();
+
         }
+    }
+
+    public boolean contains(T data) {
+        if(Objects.isNull(HEAD)) throw  new RuntimeException("HEAD is null");
+        Node<T> itr = HEAD;
+        while (Objects.nonNull(itr)) {
+            if(itr.getData().equals(data)) {
+                return true;
+            }
+            itr = itr.getNext();
+        }
+        return false;
+    }
+
+    public void reverse() {
+        if(Objects.isNull(HEAD)) throw new RuntimeException("HEAD is null");
+        Node<T> tempHead = null;
+        while(Objects.nonNull(HEAD)) {
+            Node<T> next = HEAD.getNext();
+            HEAD.setNext(tempHead);
+            tempHead = HEAD;
+            HEAD = next;
+        }
+        HEAD = tempHead;
     }
 }
