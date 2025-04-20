@@ -160,4 +160,62 @@ public class SinglyLinkedList<T> {
         }
         HEAD = tempHead;
     }
+
+    public void sort() {
+        HEAD = mergeSort(HEAD);
+    }
+
+    private Node<T> mergeSort(Node<T> head) {
+        if(Objects.isNull(head) || Objects.isNull(head.getNext())) return head;
+        Node<T> middle = findMiddle(head);
+        Node<T> left = head;
+        Node<T> right = middle.getNext();
+        middle.setNext(null);
+        left = mergeSort(left);
+        right = mergeSort(right);
+        return merge(left, right);
+    }
+
+    private Node<T> findMiddle(Node<T> head) {
+        if (head == null || head.getNext() == null) {
+            return head;
+        }
+        Node<T> slow = head;
+        Node<T> fast = head.getNext();
+        while(Objects.nonNull(fast) && Objects.nonNull(fast.getNext())) {
+            fast = fast.getNext().getNext();
+            slow = slow.getNext();
+        }
+        return slow;
+    }
+
+    private Node<T> merge(Node<T> left, Node<T> right) {
+        Node<T> temp = new Node<T>();
+        temp.setData(null);
+        Node<T> res = temp;
+        while(Objects.nonNull(left) && Objects.nonNull(right)) {
+            if(left.getData() instanceof Integer) {
+                if(Integer.parseInt(left.getData().toString()) <= Integer.parseInt(right.getData().toString())) {
+                    res.setNext(left);
+                    left = left.getNext();
+                } else {
+                    res.setNext(right);
+                    right = right.getNext();
+                }
+                res = res.getNext();
+            }
+        }
+
+        while(Objects.nonNull(left)) {
+            res.setNext(left);
+            res = res.getNext();
+            left = left.getNext();
+        }
+        while(Objects.nonNull(right)) {
+            res.setNext(right);
+            res = res.getNext();
+            right = right.getNext();
+        }
+        return temp.getNext();
+    }
 }
