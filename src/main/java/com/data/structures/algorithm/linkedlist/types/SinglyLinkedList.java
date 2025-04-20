@@ -161,6 +161,18 @@ public class SinglyLinkedList<T> {
         HEAD = tempHead;
     }
 
+    public static <T> void staticReverse(Node<T> head) {
+        if(Objects.isNull(head)) throw new RuntimeException("HEAD is null");
+        Node<T> tempHead = null;
+        while(Objects.nonNull(head)) {
+            Node<T> next = head.getNext();
+            head.setNext(tempHead);
+            tempHead = head;
+            head = next;
+        }
+        head = tempHead;
+    }
+
     public void sort() {
         HEAD = mergeSort(HEAD);
     }
