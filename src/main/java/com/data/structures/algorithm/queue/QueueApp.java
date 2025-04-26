@@ -11,7 +11,18 @@ public class QueueApp {
 //        System.out.println(q.dequeue());
 //        System.out.println(q.start.getData());
 
-        QueueWithStackArray stack = new QueueWithStackArray(5);
+//        QueueWithStackArray stack = new QueueWithStackArray(5);
+//        stack.push(1);
+//        stack.push(2);
+//        stack.push(3);
+//        stack.push(4);
+//        stack.push(5);
+//        System.out.println(stack.pop());
+//        System.out.println(stack.pop());
+//        System.out.println(stack.pop());
+//        System.out.println(stack.pop());
+//        System.out.println(stack.pop());
+        QueueWithStackLL stack = new QueueWithStackLL();
         stack.push(1);
         stack.push(2);
         stack.push(3);
@@ -22,5 +33,6 @@ public class QueueApp {
         System.out.println(stack.pop());
         System.out.println(stack.pop());
         System.out.println(stack.pop());
+
     }
 }
